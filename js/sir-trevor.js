@@ -4125,7 +4125,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        iconName: "fmt-unlink",
 	        cmd: "unlink",
 	        text: "link"
-	      }, {
+	      }, /*{
 	        name: "Heading",
 	        title: "heading",
 	        iconName: "fmt-heading",
@@ -4137,7 +4137,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        iconName: "fmt-quote",
 	        cmd: "quote",
 	        text: "quote"
-	      }]
+	      }*/]
 	    },
 	    ajaxOptions: {
 	      headers: {}
@@ -18689,7 +18689,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ScribeTextBlockPlugin = __webpack_require__(255);
 	var ScribePastePlugin = __webpack_require__(259);
-	var ScribeHeadingPlugin = __webpack_require__(260);
+	//var ScribeHeadingPlugin = __webpack_require__(260);
 	var ScribeQuotePlugin = __webpack_require__(261);
 
 	module.exports = Block.extend({
@@ -18706,7 +18706,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  configureScribe: function configureScribe(scribe) {
 	    scribe.use(new ScribeTextBlockPlugin(this));
 	    scribe.use(new ScribePastePlugin(this));
-	    scribe.use(new ScribeHeadingPlugin(this));
+	    //scribe.use(new ScribeHeadingPlugin(this));
 	    scribe.use(new ScribeQuotePlugin(this));
 
 	    scribe.on('content-changed', this.toggleEmptyClass.bind(this));
@@ -20293,7 +20293,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Block = __webpack_require__(245);
 	var stToHTML = __webpack_require__(254);
-	var ScribeHeadingPlugin = __webpack_require__(260);
+	//var ScribeHeadingPlugin = __webpack_require__(260);
 	var ScribeQuotePlugin = __webpack_require__(261);
 
 	var template = _.template(['<blockquote class="st-required st-text-block st-text-block--quote" contenteditable="true"></blockquote>', '<label class="st-input-label"> <%= i18n.t("blocks:quote:credit_field") %></label>', '<input maxlength="140" name="cite" placeholder="<%= i18n.t("blocks:quote:credit_field") %>"', ' class="st-input-string js-cite-input" type="text" />'].join("\n"));
@@ -20312,7 +20312,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  configureScribe: function configureScribe(scribe) {
-	    scribe.use(new ScribeHeadingPlugin(this));
+	    //scribe.use(new ScribeHeadingPlugin(this));
 	    scribe.use(new ScribeQuotePlugin(this));
 	  },
 
@@ -20392,7 +20392,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var stToHTML = __webpack_require__(254);
 
 	var ScribeTextBlockPlugin = __webpack_require__(255);
-	var ScribeHeadingPlugin = __webpack_require__(260);
+	//var ScribeHeadingPlugin = __webpack_require__(260);
 	var ScribeQuotePlugin = __webpack_require__(261);
 
 	module.exports = Block.extend({
@@ -20403,7 +20403,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  configureScribe: function configureScribe(scribe) {
 	    scribe.use(new ScribeTextBlockPlugin(this));
-	    scribe.use(new ScribeHeadingPlugin(this));
+	    //scribe.use(new ScribeHeadingPlugin(this));
 	    scribe.use(new ScribeQuotePlugin(this));
 
 	    scribe.on('content-changed', this.toggleEmptyClass.bind(this));

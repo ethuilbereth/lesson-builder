@@ -1,7 +1,7 @@
 <html>
 <head>
 <link href="css/sir-trevor.css" rel="stylesheet" />
-<title>Some sir trevor goodness</title>
+<title>Lesson Builder</title>
 </head>
 <body>
 <script src="js/sir-trevor.js"> </script>
@@ -48,6 +48,22 @@
     iconUrl: "icons/sir-trevor-icons.svg",
   });
 
+SirTrevor.Blocks.Section = SirTrevor.Block.extend({
+
+  type: "section",
+
+  title: function() { return 'Section'; },
+
+  editorHTML: '<div style="margin-bottom:30px;width:90%" ><hr><h1 class="st-required st-text-block st-text-block--heading" contenteditable="true" /></div>',
+
+  icon_name: 'section',
+
+  loadData: function(data){
+    this.setTextBlockHTML(SirTrevor.toHTML(data.text));
+  }
+});
+
+
 SirTrevor.Blocks.Code = SirTrevor.Block.extend({
 
   type: "code",
@@ -71,13 +87,11 @@ SirTrevor.Blocks.Note = SirTrevor.Block.extend({
 
   title: function() { return 'Note'; },
 
-  //editorHTML: '<div style="margin-bottom:30px;position:relative;left:20px;border-left:thick solid red;width:90%;padding:2px">&nbsp;<i>Note</i>: <input type="text" style="width:90%" class="st-required st-input-string" name="text"  /></div>',
   editorHTML: '<div style="margin-bottom:30px;position:relative;left:20px;padding:2px;border-left:thick solid red;width:90%"><i>Note</i>: <p style="text-align:left;width:90%" class="st-required st-text-block" contenteditable="true"/></div>',
 
   icon_name: 'note',
 
   loadData: function(data){
-    //this.el.querySelector('.st-input-string').value = data.text;
     this.setTextBlockHTML(SirTrevor.toHTML(data.text));
   }
 });
@@ -89,23 +103,33 @@ SirTrevor.Blocks.Action = SirTrevor.Block.extend({
   title: function() { return 'Action'; },
 
   editorHTML: '<div style="margin-bottom:30px;position:relative;padding:2px;border-left:thick solid teal;width:90%"><b>Action</b>: <p style="text-align:left;width:90%" class="st-required st-text-block" contenteditable="true"/></div>',
-  //editorHTML: '<div style="margin-bottom:30px;position:relative;border-left:thick solid teal;width:90%">&nbsp;<b>Action</b>: <input type="text" style="width:90%" class="st-required st-input-string" name="text"  /></div>',
 
   icon_name: 'action',
 
   loadData: function(data){
     this.setTextBlockHTML(SirTrevor.toHTML(data.text));
-    //this.el.querySelector('.st-input-string').value = data.text;
   }
 });
 
+/* All questions */
 SirTrevor.Blocks.Multiplechoicequestion = SirTrevor.Block.extend({
 
   type: "multiplechoicequestion",
 
   title: function() { return 'Multiple Choice<br>Question'; },
 
-  editorHTML: '<p class="st-required st-text-block" style="text-align: left;" contenteditable="true"></p><input contenteditable="true" class="js-answer-input st-input-string" type="text" style="width:90%" placeholder="Answer" name="answer"><input contenteditable="true" class="js-option1-input st-input-string" placeholder="(Incorrect) option" type="text" style="width:90%" name="option1"><input contenteditable="true" class="js-option2-input st-input-string" placeholder="(Incorrect) option" type="text" style="width:90%" name="option2"><input contenteditable="true" class="js-option3-input st-input-string" placeholder="(Incorrect) option" type="text" style="width:90%" name="option3"><br><input contenteditable="true" class="js-hint-input st-input-string" type="text" style="width:90%" placeholder="Hint (optional)" name="hint"><br><input contenteditable="true" class="js-moreInfo-input st-input-string" type="text" style="width:90%" placeholder="More info (displayed after student checks answer)" name="moreInfo"><br>&nbsp;',
+  editorHTML: `
+<p class="st-required st-text-block" style="text-align: left;" contenteditable="true"></p>
+<input contenteditable="true" class="js-answer-input st-input-string" type="text" style="width:90%" placeholder="Answer" name="answer">
+<input contenteditable="true" class="js-option1-input st-input-string" placeholder="(Incorrect) option" type="text" style="width:90%" name="option1">
+<input contenteditable="true" class="js-option2-input st-input-string" placeholder="(Incorrect) option" type="text" style="width:90%" name="option2">
+<input contenteditable="true" class="js-option3-input st-input-string" placeholder="(Incorrect) option" type="text" style="width:90%" name="option3">
+<br>
+<input contenteditable="true" class="js-hint-input st-input-string" type="text" style="width:90%" placeholder="Hint (optional)" name="hint">
+<br>
+<input contenteditable="true" class="js-moreInfo-input st-input-string" type="text" style="width:90%" placeholder="More info (displayed after student checks answer)" name="moreInfo">
+<br>
+&nbsp;`,
 
   icon_name: 'question',
 
@@ -119,23 +143,34 @@ SirTrevor.Blocks.Multiplechoicequestion = SirTrevor.Block.extend({
     this.el.querySelector('.js-moreInfo-input').value  = data.moreInfo;
   }
 });
+
 SirTrevor.Blocks.Truefalsequestion = SirTrevor.Block.extend({
 
   type: "truefalsequestion",
 
   title: function() { return 'True/False<br>Question'; },
 
-  editorHTML: '<p class="st-required st-text-block" style="text-align: left;" contenteditable="true"></p><form action=""><input contenteditable="true" class="js-true-input" type="radio" name="tfanswer" value="true"> True</input><br><input contenteditable="true" class="js-false-input" type="radio" name="tfanswer" value="false"> False</input></form><br><input contenteditable="true" class="js-hint-input st-input-string" type="text" style="width:90%" placeholder="Hint (optional)" name="hint"><br><input contenteditable="true" class="js-moreInfo-input st-input-string" type="text" style="width:90%" placeholder="More info (displayed after student checks answer)" name="moreInfo"><br>&nbsp;',
+  editorHTML: `
+<p class="st-required st-text-block" style="text-align: left;" contenteditable="true"></p>
+<select style="margin-bottom:10px" class="js-tfanswer-input" name="tfanswer">
+<option value="true" class="js-true-input">True</option>
+<option value="false" class="js-false-input">False</option>
+</select>
+<br>
+<input contenteditable="true" class="js-hint-input st-input-string" type="text" style="width:90%" placeholder="Hint (optional)" name="hint">
+<br>
+<input contenteditable="true" class="js-moreInfo-input st-input-string" type="text" style="width:90%" placeholder="More info (displayed after student checks answer)" name="moreInfo">
+<br>&nbsp;`,
 
   icon_name: 'question',
 
   loadData: function(data){
     this.setTextBlockHTML(SirTrevor.toHTML(data.text));
     if (data.tfanswer == "true"){
-      this.el.querySelector('.js-true-input').checked = true;
+      this.el.querySelector('.js-true-input').selected = true;
     }
     else if (data.tfanswer == "false"){
-      this.el.querySelector('.js-false-input').checked = true;
+      this.el.querySelector('.js-false-input').selected = true;
     }
     this.el.querySelector('.js-hint-input').value  = data.hint;
     this.el.querySelector('.js-moreInfo-input').value  = data.moreInfo;
@@ -150,7 +185,16 @@ SirTrevor.Blocks.Freeformquestion = SirTrevor.Block.extend({
 
   title: function() { return 'Freeform<br>Question'; },
 
-  editorHTML: '<p class="st-required st-text-block" style="text-align: left;" contenteditable="true"></p><input contenteditable="true" class="js-answer-input" type="text" style="width:90%" name="answer" placeholder="Answer"><br><input contenteditable="true" class="js-checker-input" type="text" style="width:90%" name="checker" placeholder="Checker regex"><br><input contenteditable="true" class="js-hint-input st-input-string" type="text" style="width:90%" placeholder="Hint (optional)" name="hint"><br><input contenteditable="true" class="js-moreInfo-input st-input-string" type="text" style="width:90%" placeholder="More info (displayed after student checks answer)" name="moreInfo"><br>&nbsp;',
+  editorHTML: `
+<p class="st-required st-text-block" style="text-align: left;" contenteditable="true"></p>
+<input contenteditable="true" class="js-answer-input" type="text" style="width:90%" name="answer" placeholder="Answer">
+<br>
+<input contenteditable="true" class="js-checker-input" type="text" style="width:90%" name="checker" placeholder="Checker regex">
+<br>
+<input contenteditable="true" class="js-hint-input st-input-string" type="text" style="width:90%" placeholder="Hint (optional)" name="hint">
+<br>
+<input contenteditable="true" class="js-moreInfo-input st-input-string" type="text" style="width:90%" placeholder="More info (displayed after student checks answer)" name="moreInfo">
+<br>&nbsp;`,
 
   icon_name: 'question',
 
@@ -164,18 +208,20 @@ SirTrevor.Blocks.Freeformquestion = SirTrevor.Block.extend({
 });
 
 
+/* initialize the sir trevor insteance */
 
   var editor = new SirTrevor.Editor({
     el: document.querySelector('.js-st-instance'),
     defaultType: 'Text',
   });
-      document.querySelector('form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        document.querySelector('#js-st-id').innerText = window.editor.store.toString(true);
-        httpRequest.open("POST","handlerJsonPost.php",true);
-        httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  	httpRequest.send("user="+user+"&data="+window.editor.store.toString(true))
-      });
+
+  document.querySelector('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.querySelector('#js-st-id').innerText = window.editor.store.toString(true);
+    httpRequest.open("POST","handlerJsonPost.php",true);
+    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    httpRequest.send("user="+user+"&data="+window.editor.store.toString(true))
+  });
 
 </script>
 </body>
